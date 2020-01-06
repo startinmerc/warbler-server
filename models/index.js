@@ -8,3 +8,4 @@ mongoose.connect("mongodb://localhost:27017/warbler", {
 });
 
 module.exports.User = require("./user");
+module.exports.Message = require("./message");
