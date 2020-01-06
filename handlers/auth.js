@@ -30,4 +30,4 @@ exports.signup = async function(req,res,next){
 			message: err.message
 		});
 	}
-}
+};
