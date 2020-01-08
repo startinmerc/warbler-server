@@ -3,12 +3,16 @@ const jwt = require("jsonwebtoken");
 
 exports.signin = async function(req,res,next){
 	try {
+		// Find user by email from req
 		let user = await db.User.findOne({
 			email: req.body.email
 		});
 		let { id, username, profileImageUrl } = user;
+		// Check password via middleware
 		let isMatch = await user.comparePassword(req.body.password);
+		// If password correct
 		if (isMatch) {
+			// Create JSON web token for user
 			let token = jwt.sign({
 				id,
 				username,

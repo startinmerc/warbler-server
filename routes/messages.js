@@ -1,4 +1,5 @@
 const express = require("express");
+// mergeParams preserves req.params from parent router
 const router = express.Router({ mergeParams: true });
 
 const { 
