@@ -29,25 +29,30 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function(next){
 	try {
-		// if password hased, pass
+		// Check if password unchanged
 		if(!this.isModified("password")){
 			return next();
 		}
-		// encrypt supplied password
+		// If changed, encrypt new password
 		let hashedPassword = await bcrypt.hash(this.password, 10);
+		// Replace unencrypted password
 		this.password = hashedPassword;
-		// replace unencrypted password
+		// On you go
 		return next();
+	// Catch errors
 	} catch (err) {
 		return next(err);
 	}
 });
 
+// Assign function to check password
 userSchema.methods.comparePassword = async function(candidatePassword, next){
 	try {
-		// compare supplied password with stored
+		// Compare hashed supplied password with stored
 		let isMatch = await bcrypt.compare(candidatePassword, this.password);
+		// Return boolean of matched password
 		return isMatch;
+	// Catch errors
 	} catch (err) {
 		return next(err);
 	}

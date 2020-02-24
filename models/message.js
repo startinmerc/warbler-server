@@ -18,12 +18,18 @@ const messageSchema = new mongoose.Schema(
 	}
 );
 
+// Before removing message
 messageSchema.pre('remove', async function(next){
 	try {
+		// Find author
 		let user = await User.findById(this.user);
+		// Remove message ref in author.messages
 		user.messages.remove(this.id);
+		// Wait to save
 		await user.save();
+		// On you go
 		return next();
+	// Catch errors
 	} catch(err) {
 		return next(err);
 	}
