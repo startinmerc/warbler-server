@@ -1,18 +1,29 @@
 const express = require("express");
+
+// "/api/users/:user_id/..."
 // mergeParams preserves req.params from parent router
 const router = express.Router({ mergeParams: true });
 
+// Import handlers
 const { 
 	createMessage,
 	getMessage,
-	deleteMessage
+	deleteMessage,
+	editMessage
 } = require("../handlers/messages");
 
-router.route("/").post(createMessage);
+// Root route
+router.route("/")
+	// Create new message
+	.post(createMessage);
 
-router
-	.route("/:message_id")
+// Specific Message routes
+router.route("/:message_id")
+	// Get specific message
 	.get(getMessage)
-	.delete(deleteMessage);
+	// Delete specific message
+	.delete(deleteMessage)
+	// Edit specific message
+	.put(editMessage);
 
 module.exports = router;
