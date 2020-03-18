@@ -41,7 +41,7 @@ exports.editMessage = async function(req,res,next){
 	try {
 		let newText = req.body.text;
 		let foundMessage = await db.Message.findByIdAndUpdate(
-			req.params.message_id, {text: newText, isEdited: true}, function(err,updatedMessage){
+			req.params.message_id, {text: newText}, function(err,updatedMessage){
 				if(err){
 					return err;
 				} else {
