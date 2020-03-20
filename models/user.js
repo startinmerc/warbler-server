@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
 	profileImageUrl: {
 		type: String
 	},
+	bio: {
+		type: String,
+		maxLength: 160
+	},
 	messages: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
