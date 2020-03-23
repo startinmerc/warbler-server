@@ -15,6 +15,7 @@ const errorHandler = require("./handlers/error");
 
 const authRoutes = require("./routes/auth");
 const messagesRoutes = require("./routes/messages");
+const userRoutes = require("./routes/users");
 
 // ===============Import Middleware===============
 
@@ -38,6 +39,7 @@ app.use("/api/users/:id/messages",
 	ensureCorrectUser,
 	messagesRoutes
 );
+app.use("/api/users/", userRoutes);
 
 // =================GET Messages=================
 
