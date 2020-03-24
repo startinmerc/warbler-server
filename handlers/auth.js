@@ -8,7 +8,7 @@ exports.signin = async function(req,res,next){
 			email: req.body.email
 		});
 		// Deconstruct user data to variables
-		let { id, username, profileImageUrl } = user;
+		let { id, username, profileImageUrl, bio } = user;
 		// Check password via middleware
 		let isMatch = await user.comparePassword(req.body.password);
 		// If password correct
@@ -17,7 +17,8 @@ exports.signin = async function(req,res,next){
 			let token = jwt.sign({
 				id,
 				username,
-				profileImageUrl
+				profileImageUrl,
+				bio
 			}, process.env.SECRET_KEY
 			);
 			// Return user data + auth token
@@ -25,6 +26,7 @@ exports.signin = async function(req,res,next){
 				id,
 				username,
 				profileImageUrl,
+				bio,
 				token
 			});
 		// Catch errors
