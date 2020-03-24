@@ -20,14 +20,12 @@ exports.getAllUsers = async function(req,res,next){
 
 exports.editUser = async function(req,res,next){
 	try {
-		let { 
-			username,
-			bio,
-			profileImageUrl
-		 } = req.body;
+		let params = {}
+		for(let prop in req.body) if(req.body[prop]) params[prop] = req.body[prop];
+
 		let foundUser = await db.User.findByIdAndUpdate(
 			req.params.user_id,
-			{ username, bio, profileImageUrl },
+			params,
 			function(err, updatedUser){
 				if(err){
 					return err;
